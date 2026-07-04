@@ -84,7 +84,9 @@ public class MiniApplicationContext {
         URL resource = Thread.currentThread().getContextClassLoader().getResource(path);
 
         if (resource != null) {
-            File directory = new File(resource.getFile());
+            String decodedPath = java.net.URLDecoder.decode(resource.getFile(), "UTF-8");
+            File directory = new File(decodedPath);
+
             if (directory.exists()) {
                 for (File file : directory.listFiles()) {
                     if (file.getName().endsWith(".class")) {
